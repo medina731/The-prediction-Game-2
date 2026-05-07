@@ -2,15 +2,19 @@ using UnityEngine;
 
 public class Agent_Algorithm : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public float[] BuildObservations(float[] postFeatures, Agent_Stats stats)
     {
-        
-    }
+        float[] obs = new float[postFeatures.Length + 3];
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        // Post features
+        for (int i = 0; i < postFeatures.Length; i++)
+            obs[i] = postFeatures[i];
+
+        // Stats normaliseret 0-1
+        obs[postFeatures.Length + 0] = stats.mood / 100f;
+        obs[postFeatures.Length + 1] = stats.addiction / 100f;
+        obs[postFeatures.Length + 2] = stats.dopamine / 100f;
+
+        return obs;
     }
 }
